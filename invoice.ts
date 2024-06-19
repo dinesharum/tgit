@@ -56,10 +56,8 @@ export const getInvoiceTotalV1 = (invoice: MagentoInvoice): number => {
 };
 
 export const getInvoiceTotalV2 = (invoice: MagentoInvoice): number => {
-  let checkDiscountAmountVal = 0;   
-  invoice.discount_amount !== 0 ? checkDiscountAmountVal = getPositive(invoice.discount_amount) : checkDiscountAmountVal =  getInvoiceDiscount(invoice);
-    
-  //const checkDiscountAmountVal = getInvoiceDiscount(invoice);
+  const checkDiscountAmountVal = (invoice.discount_amount !== 0) ? getPositive(invoice.discount_amount) : getInvoiceDiscount(invoice); 
+  
   const result =
     (invoice.subtotal_invoiced ?? 0) +
     (invoice.shipping_amount ?? 0) +
