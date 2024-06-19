@@ -87,7 +87,9 @@ export const getInvoiceDiscount = (invoice: MagentoInvoice): number => {
 };
 
 export const getPositive = (discountValue: number| null | undefined ): number => {
-  return(
-    (typeof discountValue === 'number')?(discountValue < 0 ? discountValue * -1 : discountValue) : 0
-  );  
+    if (typeof discountValue === 'number'){
+      return (discountValue < 0 ? discountValue * -1 : discountValue)
+    }else{
+      return 0;
+    }     
 };
