@@ -86,10 +86,12 @@ export const getInvoiceDiscount = (invoice: MagentoInvoice): number => {
   );
 };
 
-export const getPositive = (discountValue: number| null | undefined ): number => {
-    if (typeof discountValue === 'number'){
-      return (discountValue < 0 ? discountValue * -1 : discountValue)
-    }else{
-      return 0;
-    }     
+export const getInvoiceDiscount = (invoice: MagentoInvoice): number => {
+  if (typeof invoice.discount_amount === 'number' && invoice.discount_amount !== 0) {
+    return invoice.discount_amount < 0 ? invoice.discount_amount * -1 : invoice.discount_amount;
+  } else {
+    return (
+      invoice.order_items?.reduce((sum, orderItem) => sum + getOrderItemDiscount(orderItem), 0) ?? 0
+    );
+  }
 };
